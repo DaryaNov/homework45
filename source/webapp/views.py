@@ -1,29 +1,27 @@
 from django.shortcuts import render
+from webapp.models import Article, STATUS_CHOICES
 
 def index_view(request):
-    return render(request, 'index.html')
+
+    articles = Article.objects.all()
+    context = {
+        'articles': articles
+    }
+    return render(request, 'index.html', context)
 
 
-def article_create_view(request):
-    if request.method == 'GET':
-        return render(request, 'article_create.html')
-
+def article_view(request):
+    if request.method == "GET":
+        return render(request, 'article_view.html', context={
+            'status_choices': STATUS_CHOICES
+        })
     elif request.method == 'POST':
-        add=''
-        action = request.POST.get('act')
-        one = int(request.POST.get('Firstnumber'))
-        two =int(request.POST.get('Secondnumber'))
-        print(one)
-        print(two)
-        if action == "add":
-            add=one + two
-        elif action =="subtract":
-            add=one - two
-        elif action=="multiply":
-            add = one * two
-        elif action=='divide':
-            add = one / two
-        return render(request, 'article_create.html', {"result":add})
+        description = request.POST.get('description')
+        status = request.POST.get('status')
+        date_completion = request.POST.get('date_completion')
+        article = Article.objects.create(description=description, status=status,date_completion=date_completion)
+        context = {'article': article}
+        return render(request, 'article_create.html', context)
 
 
 

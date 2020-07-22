@@ -6,16 +6,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hello</title>
+    <title>Tasks</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 <div class="container">
-    <h1>My First TASK!</h1>
+    <h1>My First TASKS!</h1>
     {% for article in articles %}
-        <h3>{{ article.pk }}. {{ article.description }}</h3>
+        <h4>{{ article.pk }}. {{ article.description }}</h4>
         <p>Статус: ({{ article.status }} | {{ article.get_status_display }})</p>
-        <p>{{ article.status }} </p>
         <div>{{ date_completion.text }}</div>
     {% endfor %}
     <p><a href="/articles/add/">Добавить Задачу</a></p>
