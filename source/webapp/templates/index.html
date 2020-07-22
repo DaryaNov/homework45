@@ -1,4 +1,4 @@
-{% load staticfiles%}
+{% load staticfiles %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,39 +6,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <title>Hello</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 <div class="container">
-    <form action="/answer/" method="post">
-    {% csrf_token %}
-
-    <label>First number</label><br/>
-        <label>
-            <input name="Firstnumber" type="number"/>
-        </label><br/>
-
-    <label>Second number</label><br/>
-        <label>
-            <input name="Secondnumber" type="number"/>
-        </label><br/>
-
-        <p><label>
-            <input name="act" type="radio" value="add">
-        </label> add</p>
-        <p><label>
-            <input name="act" type="radio" value="subtract">
-        </label> subtract</p>
-        <p><label>
-            <input name="act" type="radio" value="multiply" >
-        </label> multiply</p>
-        <p><label>
-            <input name="act" type="radio" value="divide" >
-        </label> divide</p>
-    <br/>
-    <input type="submit" value="Send"/>
-</form>
+    <h1>My First TASK!</h1>
+    {% for article in articles %}
+        <h3>{{ article.pk }}. {{ article.description }}</h3>
+        <p>Статус: ({{ article.status }} | {{ article.get_status_display }})</p>
+        <p>{{ article.status }} </p>
+        <div>{{ date_completion.text }}</div>
+    {% endfor %}
+    <p><a href="/articles/add/">Добавить Задачу</a></p>
 </div>
 </body>
 </html>
