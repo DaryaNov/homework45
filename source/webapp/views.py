@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from webapp.models import Article, STATUS_CHOICES
+from django.http import HttpResponseNotAllowed, Http404
 
 def index_view(request):
 
@@ -10,6 +11,18 @@ def index_view(request):
     return render(request, 'index.html', context)
 
 
+def article_create(request, pk):
+    # try:
+    #     article = Article.objects.get(pk=pk)
+    # except Article.DoesNotExist:
+    #     raise Http404
+
+    article = get_object_or_404(Article, pk=pk)
+
+    context = {'article': article}
+    return render(request, 'article_create.html', context)
+
+
 def article_view(request):
     if request.method == "GET":
         return render(request, 'article_view.html', context={
@@ -17,11 +30,13 @@ def article_view(request):
         })
     elif request.method == 'POST':
         description = request.POST.get('description')
+        maxdescription = request.POST.get('maxdescription')
         status = request.POST.get('status')
         date_completion = request.POST.get('date_completion')
-        article = Article.objects.create(description=description, status=status,date_completion=date_completion)
-        context = {'article': article}
-        return render(request, 'article_create.html', context)
+        article = Article.objects.create(description=description,maxdescription=maxdescription, status=status,date_completion=date_completion)
+        return redirect('article_create', pk=article.pk)
+    else:
+        return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
 
 
 
