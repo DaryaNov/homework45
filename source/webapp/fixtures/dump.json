@@ -1,0 +1,60 @@
+[
+{
+  "model": "webapp.article",
+  "pk": 1,
+  "fields": {
+    "description": "task 1",
+    "maxdescription": "The self-study lessons in this section are written and organised according to the levels of the Common European Framework of Reference for languages (CEFR). There are different types of texts and interactive exercises that practise the reading skills you need to do well in your studies, to get ahead at work and to communicate in English in your free time.",
+    "status": "new",
+    "date_completion": "2020-07-31"
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 2,
+  "fields": {
+    "description": "Task45",
+    "maxdescription": "The self-study lessons in this section are written and organised according to the levels of the Common European Framework of Reference for languages (CEFR). There are different types of texts and interactive exercises that practise the reading skills you need to do well in your studies, to get ahead at work and to communicate in English in your free time.",
+    "status": "in_progress",
+    "date_completion": "2020-07-28"
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 3,
+  "fields": {
+    "description": "task2",
+    "maxdescription": "The self-study lessons in this section are written and organised according to the levels of the Common European Framework of Reference for languages (CEFR). There are different types of texts and interactive exercises that practise the reading skills you need to do well in your studies, to get ahead at work and to communicate in English in your free time.",
+    "status": "done",
+    "date_completion": "2020-07-18"
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 4,
+  "fields": {
+    "description": "wdfghy",
+    "maxdescription": "The self-study lessons in this section are written and organised according to the levels of the Common European Framework of Reference for languages (CEFR). There are different types of texts and interactive exercises that practise the reading skills you need to do well in your studies, to get ahead at work and to communicate in English in your free time.",
+    "status": "new",
+    "date_completion": "2020-09-16"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$MRH5mmNMOvMh$zdsR2PrWkOLHG5v/K8HIoKqyQJMghUB+wksxrtfffd8=",
+    "last_login": "2020-07-26T10:26:15.518Z",
+    "is_superuser": true,
+    "username": "Darya",
+    "first_name": "",
+    "last_name": "",
+    "email": "darya@mail.ru",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-07-26T10:25:43.162Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
