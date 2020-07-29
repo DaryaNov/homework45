@@ -17,7 +17,7 @@ from django.contrib import admin
 
 from django.urls import path
 
-from webapp.views import index_view, article_view, article_create
+from webapp.views import index_view, article_view, article_create,article_update_view,article_delete_view
 
 
 urlpatterns = [
@@ -25,7 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_view, name='index'),
     path('article/<int:pk>/', article_create, name='article_create'),
-    path('articles/add/', article_view, name='article_view')
+    path('articles/add/', article_view, name='article_view'),
+    path('article/<int:pk>/update/', article_update_view, name='article_update'),
+    path('article/<int:pk>/delete/', article_delete_view, name='article_delete')
 
 ]
 
