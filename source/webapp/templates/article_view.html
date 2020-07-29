@@ -1,37 +1,12 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create</title>
-</head>
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<body>
-<h1>Create task</h1>
+{% extends 'base.html' %}
 
-<form action="/articles/add/" method="post">
-    {% csrf_token %}
+{% block title %}Create{% endblock %}
 
-    <label>Description:</label><br/>
-    <input type="text" name="description"/><br/>
+{% block content %}
+    <h1>Create Article</h1>
 
-    <label>Maxdescription:</label><br/>
-    <input type="text" name="maxdescription"/><br/>
+    {% url "article_create" as action_url %}
+    {% include 'partial/form.html' with action_url=action_url form_method='post' %}
 
-    <label>Date of completion:</label><br/>
-    <input type="text" name="date_completion"/><br/>
 
-    <label for="id-status">Status:</label><br/>
-    <select name="status" id="id-status">
-        {% for value, label in status_choices %}
-            <option value="{{ value }}">{{ label }}</option>
-        {% endfor %}
-    </select><br/>
-
-    <br/>
-    <input type="submit" value="Send"/>
-</form>
-<br>
-<a href="/">На главную</a>
-</body>
-</html>
+{% endblock %}
