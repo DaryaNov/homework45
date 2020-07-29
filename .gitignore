@@ -6,3 +6,5 @@ venv
 *.pyc
 *.log
 settings_local.py
+venv
+
