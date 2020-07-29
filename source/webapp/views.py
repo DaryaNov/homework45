@@ -5,6 +5,7 @@ from django.http import HttpResponseNotAllowed, Http404
 from webapp.models import Article, STATUS_CHOICES
 from webapp.forms import ArticleForm
 
+
 def index_view(request):
 
     articles = Article.objects.all()
@@ -29,28 +30,64 @@ def article_create(request, pk):
 def article_view(request):
     if request.method == "GET":
         return render(request, 'article_view.html', context={
-            'status_choices': STATUS_CHOICES
-        })
+            'form': ArticleForm()
+         })
     elif request.method == 'POST':
-        description = request.POST.get('description')
-        maxdescription = request.POST.get('maxdescription')
-        status = request.POST.get('status')
-        date_completion = request.POST.get('date_completion')
-        article = Article.objects.create(description=description,maxdescription=maxdescription, status=status,date_completion=date_completion)
-        return redirect('article_create', pk=article.pk)
+        form = ArticleForm(data=request.POST)
+        if form.is_valid():
+            article = Article.objects.create(
+                description=form.cleaned_data['description'],
+                maxdescription=form.cleaned_data['maxdescription'],
+                status=form.cleaned_data['status'],
+                date_completion=form.cleaned_data['date_completion']
+            )
+            return redirect('article_create', pk=article.pk)
+        else:
+            return render(request, 'article_view.html', context={
+                'form': form
+            })
     else:
         return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
 
 def article_update_view(request, pk):
     article = get_object_or_404(Article, pk=pk)
-    if request.method == 'GET':
-        return render(request, 'update.html', context={'article': article})
+    if request.method == "GET":
+        form = ArticleForm(initial={
+            'description': article.description,
+            'maxdescription': article.maxdescription,
+            'status': article.status,
+            'date_completion': article.date_completion
+        })
+        return render(request, 'article_update.html', context={
+            'form': form,
+            'article': article
+        })
     elif request.method == 'POST':
-        article.title = request.POST.get('title')
-        article.author = request.POST.get('author')
-        article.text = request.POST.get('text')
-        article.save()
-        return redirect('article_view', pk=article.pk)
+        form = ArticleForm(data=request.POST)
+        if form.is_valid():
+            # Article.objects.filter(pk=pk).update(**form.cleaned_data)
+            article.description = form.cleaned_data['description']
+            article.maxdescription = form.cleaned_data['maxdescription']
+            article.status = form.cleaned_data['status']
+            article.date_completion = form.cleaned_data['date_completion']
+            article.save()
+            return redirect('article_create', pk=article.pk)
+        else:
+            return render(request, 'article_update.html', context={
+                'article': article,
+                'form': form
+            })
+    else:
+        return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
+
+def article_delete_view(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method == 'GET':
+       return render(request, 'article_delete.html', context={'article': article})
+    elif request.method == 'POST':
+        article.delete()
+        return redirect('index')
+
 
 
 
